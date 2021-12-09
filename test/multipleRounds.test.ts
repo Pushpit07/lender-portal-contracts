@@ -223,7 +223,7 @@ describe("LenderPool - Multiple Rounds", function () {
       );
     });
 
-    it("Should returns rewards after 10 days (round0)", async (user: number = 1) => {
+    it("Should return rewards after 10 days (round 0)", async (user: number = 1) => {
       const rounds = await lenderPool.getNumberOfRounds(addresses[user]);
       for (let i = 0; i < 10; i++) {
         for (let i = BigNumber.from(0); i < rounds; i = i.add(1)) {
@@ -242,14 +242,14 @@ describe("LenderPool - Multiple Rounds", function () {
       );
     });
 
-    it("Should returns all finished rounds with no finished rounds", async (user: number = 1) => {
+    it("Should return all finished rounds with no finished rounds", async (user: number = 1) => {
       const finishedRounds = await lenderPool.getFinishedRounds(
         addresses[user]
       );
       expect(finishedRounds.length).to.equal(0);
     });
 
-    it("Should returns all finished rounds after 10 + 20 days (30days passed)", async (user: number = 1) => {
+    it("Should return all finished rounds after 10 + 20 days (30 days passed)", async (user: number = 1) => {
       await increaseTime(ONE_DAY * 20);
       const finishedRounds = await lenderPool.getFinishedRounds(
         addresses[user]
@@ -257,7 +257,7 @@ describe("LenderPool - Multiple Rounds", function () {
       expect(finishedRounds.length).to.equal(1);
     });
 
-    it("Should returns all finished rounds after 30 more days (60days passed)", async (user: number = 1) => {
+    it("Should return all finished rounds after 30 more days (60 days passed)", async (user: number = 1) => {
       await increaseTime(ONE_DAY * 30);
       const finishedRounds = await lenderPool.getFinishedRounds(
         addresses[user]
@@ -265,7 +265,7 @@ describe("LenderPool - Multiple Rounds", function () {
       expect(finishedRounds.length).to.equal(2);
     });
 
-    it("Should returns all finished rounds after 30 more days (90days passed)", async (user: number = 1) => {
+    it("Should return all finished rounds after 30 more days (90 days passed)", async (user: number = 1) => {
       await increaseTime(ONE_DAY * 30);
       const finishedRounds = await lenderPool.getFinishedRounds(
         addresses[user]
@@ -273,7 +273,7 @@ describe("LenderPool - Multiple Rounds", function () {
       expect(finishedRounds.length).to.equal(3);
     });
 
-    it("Should returns all finished rounds after 30 more days (120days passed)", async (user: number = 1) => {
+    it("Should return all finished rounds after 30 more days (120 days passed)", async (user: number = 1) => {
       await increaseTime(ONE_DAY * 30);
       const finishedRounds = await lenderPool.getFinishedRounds(
         addresses[user]
@@ -281,7 +281,7 @@ describe("LenderPool - Multiple Rounds", function () {
       expect(finishedRounds.length).to.equal(4);
     });
 
-    it("Should returns all finished rounds after 30 more days (150days passed)", async (user: number = 1) => {
+    it("Should return all finished rounds after 30 more days (150 days passed)", async (user: number = 1) => {
       await increaseTime(ONE_DAY * 30);
       const finishedRounds = await lenderPool.getFinishedRounds(
         addresses[user]
@@ -289,7 +289,7 @@ describe("LenderPool - Multiple Rounds", function () {
       expect(finishedRounds.length).to.equal(5);
     });
 
-    it("Should returns all finished rounds after 30 more days (180days passed)", async (user: number = 1) => {
+    it("Should return all finished rounds after 30 more days (180 days passed)", async (user: number = 1) => {
       await increaseTime(ONE_DAY * 30);
       const finishedRounds = await lenderPool.getFinishedRounds(
         addresses[user]
@@ -311,7 +311,7 @@ describe("LenderPool - Multiple Rounds", function () {
       expect(balanceTradeAfter).to.be.above(balanceTradeBefore);
     });
 
-    it("Should returns all finished rounds after withdrawal", async (user: number = 1) => {
+    it("Should return all finished rounds after withdrawal", async (user: number = 1) => {
       const finishedRounds = await lenderPool.getFinishedRounds(
         addresses[user]
       );

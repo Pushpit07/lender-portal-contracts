@@ -187,6 +187,14 @@ describe("LenderPool - Advanced", function () {
         expect(bonusRewardAfter).to.equal(n6("8.219178"));
       });
 
+	  it("Should return total rewards for user0 for round0 at the endPeriod", async () => {
+        const totalRewardAfter = await lenderPool1.totalRewardOf(
+          addresses[0],
+          0
+        );
+        expect(totalRewardAfter).to.equal(n6("12.328767"));
+      });
+
       it("Should withdraw for user0 for round0", async () => {
         expect(await tradeContract.balanceOf(addresses[0])).to.equal(0);
         await lenderPool1.withdraw(addresses[0], 0);
@@ -220,6 +228,14 @@ describe("LenderPool - Advanced", function () {
         expect(bonusRewardAfter).to.equal(n6("0.657534"));
       });
 
+			it("Should return total rewards for user1 for round0 at the endPeriod", async () => {
+        const totalRewardAfter = await lenderPool1.totalRewardOf(
+          addresses[1],
+          0
+        );
+        expect(totalRewardAfter).to.equal(n6("1.068492"));
+      });
+
       it("Should withdraw for user1 for round0", async () => {
         expect(await tradeContract.balanceOf(addresses[1])).to.equal(0);
         await lenderPool1.withdraw(addresses[1], 0);
@@ -251,6 +267,14 @@ describe("LenderPool - Advanced", function () {
           0
         );
         expect(bonusRewardAfter).to.equal(n6("8.219178"));
+      });
+
+			it("Should return total rewards for user2 for round0 at the endPeriod", async () => {
+        const totalRewardAfter = await lenderPool1.totalRewardOf(
+          addresses[2],
+          0
+        );
+        expect(totalRewardAfter).to.equal(n6("12.328767"));
       });
 
       it("Should withdraw for user2 for round0", async () => {
@@ -300,6 +324,14 @@ describe("LenderPool - Advanced", function () {
         expect(bonusRewardAfter).to.equal(n6("57.534246"));
       });
 
+			it("Should return total rewards for user0 for round0 at the endPeriod", async () => {
+        const totalRewardAfter = await lenderPool2.totalRewardOf(
+          addresses[0],
+          0
+        );
+        expect(totalRewardAfter).to.equal(n6("123.28767"));
+      });
+
       it("Should withdraw for user0 for round0", async () => {
         await lenderPool2.withdraw(addresses[0], 0);
         await USDTContract.balanceOf(addresses[0]);
@@ -335,27 +367,37 @@ describe("LenderPool - Advanced", function () {
       await lenderPool3.setMinimumDeposit(n18("100"));
     });
 
-    it("Should run new Rounds for user0", async () => {
-      await DAIContract.approve(
-        lenderPool3.address,
-        ethers.constants.MaxUint256
-      );
-      await lenderPool3.newRound(addresses[0], n18("500"), "1100", 30, false);
-    });
+		describe("User0 - Round0, amount: 500 USDT, bonusAPY: 11%, Tenure: 30, TradeBonus: false", () => {
+			it("Should run new Rounds for user0", async () => {
+				await DAIContract.approve(
+					lenderPool3.address,
+					ethers.constants.MaxUint256
+				);
+				await lenderPool3.newRound(addresses[0], n18("500"), "1100", 30, false);
+			});
 
-    it("Should return stable rewards for user0 for round0 at the endPeriod", async () => {
-      await increaseTime(ONE_DAY * 31);
-      const rewardAfter = await lenderPool3.stableRewardOf(addresses[0], 0);
-      expect(rewardAfter).to.equal(n18("2.465753424657534246"));
-    });
+			it("Should return stable rewards for user0 for round0 at the endPeriod", async () => {
+				await increaseTime(ONE_DAY * 31);
+				const rewardAfter = await lenderPool3.stableRewardOf(addresses[0], 0);
+				expect(rewardAfter).to.equal(n18("2.465753424657534246"));
+			});
 
-    it("Should return bonus rewards for user0 for round0 at the endPeriod", async () => {
-      const bonusRewardAfter = await lenderPool3.bonusRewardOf(addresses[0], 0);
-      expect(bonusRewardAfter).to.equal(n18("4.520547945205479452"));
-    });
+			it("Should return bonus rewards for user0 for round0 at the endPeriod", async () => {
+				const bonusRewardAfter = await lenderPool3.bonusRewardOf(addresses[0], 0);
+				expect(bonusRewardAfter).to.equal(n18("4.520547945205479452"));
+			});
 
-    it("Should withdraw for user0 for round0", async () => {
-      await lenderPool3.withdraw(addresses[0], 0);
-    });
+			it("Should return total rewards for user0 for round0 at the endPeriod", async () => {
+				const totalRewardAfter = await lenderPool3.totalRewardOf(
+					addresses[0],
+					0
+				);
+				expect(totalRewardAfter).to.equal(n18("6.986301369863013698"));
+			});
+
+			it("Should withdraw for user0 for round0", async () => {
+				await lenderPool3.withdraw(addresses[0], 0);
+			});
+		});
   });
 });
